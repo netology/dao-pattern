@@ -19,7 +19,8 @@ func TestOrderItem_GetByOrderID(t *testing.T) {
 		defer db.Close()
 
 		mock.ExpectPrepare("SELECT order_item_id, order_id, product_id, quantity, price, currency FROM order_items").ExpectQuery().
-			WillReturnRows(sqlmock.NewRows([]string{"order_item_id", "order_id", "product_id", "quantity", "price", "currency"}).AddRow(1, expectedOrderID, models.ProductID(2), 1, 3.0, "usd"))
+			WillReturnRows(sqlmock.NewRows([]string{"order_item_id", "order_id", "product_id", "quantity", "price", "currency"}).
+				AddRow(1, expectedOrderID, models.ProductID(2), 1, 3.0, "usd"))
 
 		orderRepository := NewOrderItemRepository(db)
 		orderItems, err := orderRepository.GetByOrderID(expectedOrderID)
@@ -48,7 +49,6 @@ func TestOrderItem_GetByOrderID(t *testing.T) {
 		})
 
 	})
-
 
 }
 
@@ -114,6 +114,8 @@ func TestOrderItem_SaveWithTransaction(t *testing.T) {
 
 		orderRepository := NewOrderItemRepository(db)
 		tx, err := db.Begin()
+		require.NoError(t, err)
+
 		err = orderRepository.SaveWithTransaction(tx, &models.OrderItem{1, expectedOrderID, models.ProductID(2), 1, models.Money{3, models.USD}})
 		require.NoError(t, err)
 	})

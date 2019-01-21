@@ -2,9 +2,9 @@ package postgresql
 
 import (
 	"database/sql"
+	"github.com/pkg/errors"
 	"github.com/netology/godesignpatterns/dao/models"
 	"github.com/netology/godesignpatterns/dao/repositories"
-	"github.com/pkg/errors"
 )
 
 func NewOrderRepository(db *sql.DB, orderItemRepository repositories.OrderItemRepository) repositories.OrderRepository {
@@ -51,8 +51,8 @@ func (o *order) Save(order *models.Order) error {
 		return errors.Wrap(err, "prepare query error")
 	}
 
-	var lastInsertId int64
-	if err := stmt.QueryRow(order.CustomerID, order.Amount.Value, order.Amount.Currency).Scan(&lastInsertId); err != nil {
+	var lastInsertID int64
+	if err := stmt.QueryRow(order.CustomerID, order.Amount.Value, order.Amount.Currency).Scan(&lastInsertID); err != nil {
 		return errors.Wrap(err, "query row error")
 	}
 
@@ -62,11 +62,11 @@ func (o *order) Save(order *models.Order) error {
 	// if err != nil {
 	//	return errors.Wrap(err, "exec error")
 	// }
-	// lastInsertId, err = result.LastInsertId()
+	// lastInsertID, err = result.LastInsertId()
 	//
 	///////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	order.ID = models.OrderID(lastInsertId)
+	order.ID = models.OrderID(lastInsertID)
 	for _, item := range order.Items {
 		item.OrderID = order.ID
 		if err := o.orderItemRepository.SaveWithTransaction(tx, item); err != nil {

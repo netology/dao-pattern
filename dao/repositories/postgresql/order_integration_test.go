@@ -4,6 +4,7 @@ package postgresql
 
 import (
 	"database/sql"
+	_ "github.com/lib/pq"
 	"github.com/netology/godesignpatterns/dao/models"
 	"github.com/pkg/errors"
 	"github.com/stretchr/testify/require"

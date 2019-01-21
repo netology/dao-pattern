@@ -108,7 +108,6 @@ linters-settings:
 linters:
   enable:
     - deadcode
-    - goimports
     - golint
     - govet
     - gosimple
@@ -124,6 +123,7 @@ linters:
     - varcheck
   enable-all: false
   disable:
+    - goimports
     - gocritic
     - prealloc
     - typecheck

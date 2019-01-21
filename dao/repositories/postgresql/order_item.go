@@ -2,9 +2,11 @@ package postgresql
 
 import (
 	"database/sql"
+
+	"github.com/pkg/errors"
+
 	"github.com/netology/godesignpatterns/dao/models"
 	"github.com/netology/godesignpatterns/dao/repositories"
-	"github.com/pkg/errors"
 )
 
 func NewOrderItemRepository(db *sql.DB) repositories.OrderItemRepository {
@@ -41,23 +43,22 @@ func (o orderItem) GetByOrderID(orderID models.OrderID) ([]*models.OrderItem, er
 	return orderItems, nil
 }
 
-
 func (o orderItem) Save(orderItem *models.OrderItem) error {
 	stmt, err := o.db.Prepare("INSERT INTO order_items (order_id, product_id, quantity, price, currency) VALUES ($1, $2, $3, $4, $5) RETURNING order_item_id;")
 	if err != nil {
 		return err
 	}
 
-	var lastInsertId int64
-	if err := stmt.QueryRow(orderItem.OrderID, orderItem.ProductID, orderItem.Quantity, orderItem.Price.Value, orderItem.Price.Currency).Scan(&lastInsertId); err != nil {
+	var lastInsertID int64
+	row := stmt.QueryRow(orderItem.OrderID, orderItem.ProductID, orderItem.Quantity, orderItem.Price.Value, orderItem.Price.Currency)
+	if err := row.Scan(&lastInsertID); err != nil {
 		return err
 	}
 
-	orderItem.ID = lastInsertId
+	orderItem.ID = lastInsertID
 
 	return nil
 }
-
 
 func (o orderItem) SaveWithTransaction(tx *sql.Tx, orderItem *models.OrderItem) error {
 	stmt, err := tx.Prepare("INSERT INTO order_items (order_id, product_id, quantity, price, currency) VALUES ($1, $2, $3, $4, $5) RETURNING order_item_id;")
@@ -65,12 +66,13 @@ func (o orderItem) SaveWithTransaction(tx *sql.Tx, orderItem *models.OrderItem) 
 		return err
 	}
 
-	var lastInsertId int64
-	if err := stmt.QueryRow(orderItem.OrderID, orderItem.ProductID, orderItem.Quantity, orderItem.Price.Value, orderItem.Price.Currency).Scan(&lastInsertId); err != nil {
+	var lastInsertID int64
+	row := stmt.QueryRow(orderItem.OrderID, orderItem.ProductID, orderItem.Quantity, orderItem.Price.Value, orderItem.Price.Currency)
+	if err := row.Scan(&lastInsertID); err != nil {
 		return err
 	}
 
-	orderItem.ID = lastInsertId
+	orderItem.ID = lastInsertID
 
 	return nil
 }

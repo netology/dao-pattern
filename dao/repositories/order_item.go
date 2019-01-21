@@ -4,6 +4,7 @@ package repositories
 
 import (
 	"database/sql"
+
 	"github.com/netology/godesignpatterns/dao/models"
 )
 
