@@ -9,7 +9,7 @@ import (
 
 // NewConnection is connection constructor
 func NewConnection() *sql.DB {
-	
+
 	dsn := fmt.Sprintf("postgresql://%s:%s@%s:%s/%s?sslmode=disable",
 		os.Getenv("DB_USER"),
 		os.Getenv("DB_PASS"),

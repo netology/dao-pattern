@@ -1,9 +1,11 @@
+// +build unit
+
 package postgresql
 
 import (
 	"github.com/golang/mock/gomock"
-	"github.com/netology/godesignpatterns/dao/models"
-	"github.com/netology/godesignpatterns/dao/repositories"
+	"github.com/netology/dao-pattern/models"
+	"github.com/netology/dao-pattern/repositories"
 	"github.com/pkg/errors"
 	"github.com/stretchr/testify/require"
 	"gopkg.in/DATA-DOG/go-sqlmock.v2"

@@ -1,4 +1,4 @@
-module github.com/netology/godesignpatterns
+module github.com/netology/dao-pattern
 
 require (
 	github.com/OpenPeeDeeP/depguard v0.0.0-20181229194401-1f388ab2d810 // indirect

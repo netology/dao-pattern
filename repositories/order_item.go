@@ -5,7 +5,7 @@ package repositories
 import (
 	"database/sql"
 
-	"github.com/netology/godesignpatterns/dao/models"
+	"github.com/netology/dao-pattern/models"
 )
 
 // OrderItemRepository is a repository

@@ -1,5 +1,9 @@
-# godesignpatterns
-Golang design patterns
- - DAO
+# Golang DAO Pattern
 
-[![Build Status](https://travis-ci.org/netology/godesignpatterns.svg?branch=master)](https://travis-ci.org/netology/godesignpatterns)
+#### Requirements
+
+ - go sql
+ - postgresql sql driver
+ - 
+
+[![Build Status](https://travis-ci.org/netology/dao-pattern.svg?branch=master)](https://travis-ci.org/netology/dao-pattern)

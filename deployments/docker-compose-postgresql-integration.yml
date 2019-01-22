@@ -14,8 +14,8 @@ services:
     image: boxfuse/flyway
     entrypoint: bash -c "sleep 3 && flyway -configFile=./conf/flyway.conf clean migrate"
     volumes:
-      - ./conf:/flyway/conf
-      - ./sql:/flyway/sql
+      - ./flyway/conf:/flyway/conf
+      - ./flyway/sql:/flyway/sql
     depends_on:
       - postgresql
     links:
@@ -24,8 +24,8 @@ services:
   integration_test:
     image: golang
     volumes:
-      - ../..:/go/src/github.com/netology/godesignpatterns
-    working_dir: /go/src/github.com/netology/godesignpatterns
+      - ../:/go/src/github.com/netology/dao-pattern
+    working_dir: /go/src/github.com/netology/dao-pattern
     command: sh -c "sleep 5;GO111MODULE=on go mod vendor && go test ./... -tags=integration -count=1 -race"
     depends_on:
       - postgresql

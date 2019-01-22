@@ -5,8 +5,8 @@ import (
 
 	"github.com/pkg/errors"
 
-	"github.com/netology/godesignpatterns/dao/models"
-	"github.com/netology/godesignpatterns/dao/repositories"
+	"github.com/netology/dao-pattern/models"
+	"github.com/netology/dao-pattern/repositories"
 )
 
 func NewOrderItemRepository(db *sql.DB) repositories.OrderItemRepository {

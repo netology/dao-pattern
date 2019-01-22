@@ -3,7 +3,7 @@
 package repositories
 
 import (
-	"github.com/netology/godesignpatterns/dao/models"
+	"github.com/netology/dao-pattern/models"
 )
 
 // OrderRepository is a repository

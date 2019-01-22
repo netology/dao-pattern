@@ -5,19 +5,20 @@ package postgresql
 import (
 	"database/sql"
 	_ "github.com/lib/pq"
-	"github.com/netology/godesignpatterns/dao/models"
+	"github.com/netology/dao-pattern/models"
+	"github.com/netology/dao-pattern/repositories/postgresql"
 	"github.com/pkg/errors"
 	"github.com/stretchr/testify/require"
 	"testing"
 )
 
 func TestIntegration(t *testing.T) {
-	db := NewConnection()
+	db := postgresql.NewConnection()
 	defer db.Close()
 
 	t.Run("success commint", func(t *testing.T) {
-		orderItemRepository := NewOrderItemRepository(db)
-		orderRepository := NewOrderRepository(db, orderItemRepository)
+		orderItemRepository := postgresql.NewOrderItemRepository(db)
+		orderRepository := postgresql.NewOrderRepository(db, orderItemRepository)
 		orderEntity := &models.Order{
 			CustomerID: 1,
 			Amount:     models.Money{20, models.USD},
@@ -44,8 +45,8 @@ func TestIntegration(t *testing.T) {
 	})
 
 	t.Run("failure and rollback", func(t *testing.T) {
-		orderItemRepository := NewOrderItemRepository(db)
-		orderRepository := NewOrderRepository(db, orderItemRepository)
+		orderItemRepository := postgresql.NewOrderItemRepository(db)
+		orderRepository := postgresql.NewOrderRepository(db, orderItemRepository)
 		orderEntity := &models.Order{
 			CustomerID: 1,
 			Amount:     models.Money{20, models.USD},

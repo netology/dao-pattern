@@ -3,8 +3,8 @@ package postgresql
 import (
 	"database/sql"
 	"github.com/pkg/errors"
-	"github.com/netology/godesignpatterns/dao/models"
-	"github.com/netology/godesignpatterns/dao/repositories"
+	"github.com/netology/dao-pattern/models"
+	"github.com/netology/dao-pattern/repositories"
 )
 
 func NewOrderRepository(db *sql.DB, orderItemRepository repositories.OrderItemRepository) repositories.OrderRepository {

@@ -7,7 +7,7 @@ package repositories
 import (
 	sql "database/sql"
 	gomock "github.com/golang/mock/gomock"
-	models "github.com/netology/godesignpatterns/dao/models"
+	models "github.com/netology/dao-pattern/models"
 	reflect "reflect"
 )
 

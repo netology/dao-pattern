@@ -15,13 +15,13 @@ mocks:
 
 lint:
 	go get -u github.com/golangci/golangci-lint/cmd/golangci-lint
-	golangci-lint run
+	$$GOPATH/bin/golangci-lint run
 
 unit_test:
 	go test ./... -tags=unit -count=1 -race
 
 integration_test:
-	docker-compose -f dao/flyway/docker-compose.yml run integration_test
+	docker-compose -f deployments/docker-compose-postgresql-integration.yml run integration_test
 
 test: unit_test integration_test
 
