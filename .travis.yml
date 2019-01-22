@@ -8,3 +8,6 @@ script:
 
 services:
   - docker
+
+env:
+  - GO111MODULE=on
