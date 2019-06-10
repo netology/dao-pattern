@@ -1,0 +1,13 @@
+version: 0.2
+
+# env:
+#   parameter-store:
+#     NPM_TOKEN: /Codebuild/NPM/token
+
+phases:
+  install:
+    runtime-versions:
+      docker: 18
+  build:
+    commands:
+      - make install lint test
